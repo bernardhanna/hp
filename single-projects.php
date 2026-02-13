@@ -1,7 +1,7 @@
 <?php
 get_header();
 ?>
-<main class="overflow-hidden w-full min-h-screen site-main  mt-[5rem] lg:mt-[8rem]">
+<main class="w-full site-main">
 
     <?php
     if (function_exists('load_hero_templates')) {

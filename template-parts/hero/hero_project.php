@@ -32,7 +32,7 @@ $text_color_title    = get_sub_field('title_color') ?: '#0F172A';
 $text_color_intro    = get_sub_field('intro_color') ?: '#334155';
 
 // Layout padding repeater on inner wrapper
-$padding_classes = ['pt-5','pb-5'];
+$padding_classes = ['','pb-5'];
 if (have_rows('padding_settings')) {
   $padding_classes = [];
   while (have_rows('padding_settings')) {
@@ -85,25 +85,25 @@ if (!function_exists('hero_pm_youtube_id')) {
 }
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-hidden relative" aria-label="Project hero section">
-  <div class="flex flex-col items-center w-full max-lg:px-5 <?php echo esc_attr(implode(' ', $padding_classes)); ?>">
+<section id="<?php echo esc_attr($section_id); ?>" class="flex relative" aria-label="Project hero section">
+  <div class="flex flex-col items-center w-full">
 
 <?php if (!empty($hero_image['url'])): ?>
   <div
-    class="w-full h-[44.875rem] bg-center bg-cover"
+    class="w-full h-screen bg-center bg-cover max-h-[718px]"
     role="img"
     aria-label="<?php echo esc_attr(!empty($hero_image['alt']) ? $hero_image['alt'] : (!empty($hero_image['title']) ? $hero_image['title'] : 'Project image')); ?>"
     style="background-image: url('<?php echo esc_url($hero_image['url']); ?>');">
   </div>
 <?php endif; ?>
 
-    <div class="z-10 self-end mt-0 w-full max-w-[1547px] mx-auto max-md:max-w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-[31%_69%] gap-5 max-md:grid-cols-1">
+    <div class="z-10 self-end mt-0 w-full max-w-[1547px] mx-auto max-md:max-w-full relative">
+      <div class="grid grid-cols-1 lg:grid-cols-[31%_69%] gap-5 max-md:grid-cols-1 relative">
 
-        <!-- Left: Project details -->
-        <article class="w-full -mt-[7.5rem] max-md:px-5 max-md:ml-0">
+        <!-- Left: Project details (absolute on lg so it overlays when expanded, doesn't push media down) -->
+        <article class="w-full -mt-[7.5rem] max-md:px-5 max-md:ml-0 lg:absolute lg:left-0 lg:top-[-7.5rem] lg:w-[31%] lg:z-20">
           <div
-            class="flex flex-col pt-12 xl:pr-12 pb-5 px-5 xl:pl-14 mx-auto w-full border-l-8 border-solid  max-md:px-5 max-md:mt-10 max-md:max-w-full lg:rounded-r-2xl  shadow-[0_4px_37px_0_rgba(0,0,0,0.25)]"
+            class="hero-project-panel-inner flex flex-col pt-12 xl:pr-12 pb-5 px-5 xl:pl-14 mx-auto border-l-8 border-solid max-md:px-5 max-md:mt-10 max-md:max-w-full lg:rounded-r-2xl w-full shadow-[0_4px_37px_0_rgba(0,0,0,0.25)]"
             style="background-color: <?php echo esc_attr($panel_bg_color); ?>; border-left-color: <?php echo esc_attr($panel_border_color); ?>;"
           >
           <nav aria-label="Breadcrumb" class="flex gap-2 items-center mb-4">
@@ -167,7 +167,7 @@ if (!function_exists('hero_pm_youtube_id')) {
             <!-- Extra copy -->
 <?php
 // Read-more settings (ACF fields are optional; hard-coded defaults if not present)
-$rm_limit      = (int) (get_sub_field('readmore_word_limit') ?: 60); // words
+$rm_limit      = (int) (get_sub_field('readmore_word_limit') ?: 48); // words (preview matches ~first paragraph e.g. "Hanley Pepper were originally appointed...")
 $rm_more_label = get_sub_field('readmore_more_label') ?: 'Read more';
 $rm_less_label = get_sub_field('readmore_less_label') ?: 'Read less';
 ?>
@@ -219,8 +219,8 @@ $rm_less_label = get_sub_field('readmore_less_label') ?: 'Read less';
 
           </div>
         </article>
-        <!-- Right: Media gallery -->
-        <section class="w-full max-xl:px-5" aria-labelledby="<?php echo esc_attr($section_id); ?>-media-heading">
+        <!-- Right: Media gallery (lg:col-start-2 so it stays in second column when left panel is absolute) -->
+        <section class="w-full max-xl:px-5 lg:col-start-2" aria-labelledby="<?php echo esc_attr($section_id); ?>-media-heading">
           <h2 id="<?php echo esc_attr($section_id); ?>-media-heading" class="sr-only">Project Media Gallery</h2>
 
           <div class="px-5 w-full max-lg:px-0 md:py-10 xl:py-20 max-md:mt-10 max-md:max-w-full">
@@ -243,8 +243,8 @@ $rm_less_label = get_sub_field('readmore_less_label') ?: 'Read less';
 
                 // sizing
                 $wrap_classes = $size === 'lg'
-                  ? 'flex overflow-hidden relative flex-col justify-center items-center rounded-lg min-h-[530px] w-full max-md:px-5 max-md:py-24 max-md:max-w-full yt-media-box'
-                  : 'flex relative flex-col items-start px-6 pt-96 pb-6 w-full min-h-[530px] text-slate-700 max-md:px-5 max-md:pt-24 max-md:mt-10 max-md:max-w-full overflow-hidden rounded-lg';
+                  ? 'flex  relative flex-col justify-center items-center rounded-lg min-h-[530px] w-full max-md:px-5 max-md:py-24 max-md:max-w-full yt-media-box'
+                  : 'flex relative flex-col items-start px-6 pt-96 pb-6 w-full min-h-[530px] text-slate-700 max-md:px-5 max-md:pt-24 max-md:mt-10 max-md:max-w-full  rounded-lg';
 
                 // choose media (poster > image > yt thumb)
                 $media_html = '';
@@ -334,6 +334,16 @@ $rm_less_label = get_sub_field('readmore_less_label') ?: 'Read less';
 </section>
 
 <style>
+  /* Read more: all paragraphs except the first */
+  #<?php echo esc_js($section_id); ?> [id$="-rm"] .wp_editor p:not(:first-of-type) {
+    font-size: 1rem;
+    line-height: 22px;
+  }
+  /* Panel inner: max height 1700px + scroll when content is longer */
+  #<?php echo esc_js($section_id); ?> .hero-project-panel-inner {
+    max-height: 1700px;
+    overflow-y: auto;
+  }
   /* Mobile video visibility + inline playback */
   #<?php echo esc_js($section_id); ?> .yt-media-box { position: relative; width: 100%; height: 100%; }
   @media (max-width: 767px) {

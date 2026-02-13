@@ -256,7 +256,7 @@ function render_project_card($project) {
 ?>
 
 <?php
-$section_classes = ['flex','overflow-hidden','relative'];
+$section_classes = ['flex','relative'];
 if ( ! is_front_page() ) {
   $section_classes[] = 'lg:px-5';
 }

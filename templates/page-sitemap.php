@@ -5,7 +5,7 @@ Template Name: Sitemap Page
 
 get_header();
 ?>
-<main class="w-full min-h-screen overflow-hidden site-main">
+<main class="w-full   overflow-hidden site-main">
     <?php load_hero_templates(); ?>
         <section class="relative flex overflow-hidden">
             <div class="flex flex-col items-center w-full py-5 mx-auto max-w-[1085px] max-lg:px-5">
