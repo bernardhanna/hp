@@ -85,7 +85,7 @@ if (!function_exists('hero_pm_youtube_id')) {
 }
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" class="flex relative" aria-label="Project hero section">
+<section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-x-hidden relative" aria-label="Project hero section">
   <div class="flex flex-col items-center w-full">
 
 <?php if (!empty($hero_image['url'])): ?>
@@ -334,8 +334,8 @@ $rm_less_label = get_sub_field('readmore_less_label') ?: 'Read less';
 </section>
 
 <style>
-  /* Read more: all paragraphs except the first */
-  #<?php echo esc_js($section_id); ?> [id$="-rm"] .wp_editor p:not(:first-of-type) {
+  /* Read more full content: all paragraphs */
+  #<?php echo esc_js($section_id); ?> [data-rm-full].wp_editor p {
     font-size: 1rem;
     line-height: 22px;
   }
