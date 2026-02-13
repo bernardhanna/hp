@@ -1,7 +1,7 @@
 <?php
 get_header();
 ?>
-<main class="w-full site-main">
+<main class="overflow-x-hidden w-full site-main">
 
     <?php
     if (function_exists('load_hero_templates')) {
